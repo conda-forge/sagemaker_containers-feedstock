@@ -1,20 +1,21 @@
 {% set name = "sagemaker_containers" %}
-{% set version = "2.6.3" %}
+{% set version = "2.6.4" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6d2917890bc0a4786c88018a7da402bb079404e87d983975e5c91fb71eda2257
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version
+    }}.tar.gz
+  sha256: b8183349420ab5ad478ef19eb91a23360f73ebd2e0d014249f70f5125389bc56
 
 build:
   number: 0
   entry_points:
     - serve=sagemaker_containers.cli.serve:main
     - train=sagemaker_containers.cli.train:main
-  script: "{{ PYTHON }} -m pip install . -vv"
+  script: {{ PYTHON }} -m pip install . -vv
   skip: True  # [win]
 
 requirements:
@@ -43,6 +44,7 @@ test:
   requires:
     - scipy
     - protobuf3-to-dict
+    - pip
   imports:
     - sagemaker_containers
     - sagemaker_containers.beta
@@ -50,14 +52,16 @@ test:
     - sagemaker_containers.cli
     - sagemaker_containers.etc  # [py>=36]
 
+  commands:
+    - python -m pip check
 about:
-  home: "https://github.com/aws/sagemaker-containers/"
-  license: "Apache-2.0"
-  license_family: "APACHE"
-  license_file: "LICENSE"
-  summary: "Open source library for creating containers to run on Amazon SageMaker."
-  doc_url: "https://pypi.org/project/sagemaker-containers/"
-  dev_url: "https://github.com/aws/sagemaker-containers/"
+  home: https://github.com/aws/sagemaker-containers/
+  license: Apache-2.0
+  license_family: APACHE
+  license_file: LICENSE
+  summary: Open source library for creating containers to run on Amazon SageMaker.
+  doc_url: https://pypi.org/project/sagemaker-containers/
+  dev_url: https://github.com/aws/sagemaker-containers/
 
 extra:
   recipe-maintainers:
